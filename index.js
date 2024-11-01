@@ -2,11 +2,16 @@
 function toggleFrecuencia() {
     const tipoInversion = document.getElementById("tipoInversion").value;
     const frecuenciaGroup = document.getElementById("frecuenciaGroup");
-    
+    const resultDiv = document.getElementById("result");
+    const tasaInteresLabel = document.getElementById("tasaInteresLabel");
+
     if (tipoInversion === "unico") {
         frecuenciaGroup.style.display = "none";
+        tasaInteresLabel.textContent = "Tasa de interés efectiva (%)";
+        resultDiv.innerHTML = "";
     } else {
         frecuenciaGroup.style.display = "block";
+        tasaInteresLabel.textContent = "Tasa de interés anual efectiva (%)";
     }
 }
 
@@ -29,15 +34,15 @@ function calcularInversion() {
         switch (frecuencia) {
             case "mensual":
                 n = añosInversion * 12;
-                tasaPeriodica = Math.pow(1 + tasaInteresAnual, 1/12) - 1;
+                tasaPeriodica = Math.pow(1 + tasaInteresAnual, 1 / 12) - 1;
                 break;
             case "trimestral":
                 n = añosInversion * 4;
-                tasaPeriodica = Math.pow(1 + tasaInteresAnual, 1/4) - 1;
+                tasaPeriodica = Math.pow(1 + tasaInteresAnual, 1 / 4) - 1;
                 break;
             case "semestral":
                 n = añosInversion * 2;
-                tasaPeriodica = Math.pow(1 + tasaInteresAnual, 1/2) - 1;
+                tasaPeriodica = Math.pow(1 + tasaInteresAnual, 1 / 2) - 1;
                 break;
             case "anual":
                 n = añosInversion;
@@ -45,7 +50,6 @@ function calcularInversion() {
                 break;
         }
         valorFuturo = montoInversion * ((Math.pow(1 + tasaPeriodica, n) - 1) / tasaPeriodica);
-
     } else if (tipoInversion === "unico") {
         n = añosInversion;
         tasaPeriodica = tasaInteresAnual;
